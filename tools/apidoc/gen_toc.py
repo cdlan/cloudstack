@@ -271,7 +271,8 @@ known_categories = {
     'deleteBucket': 'Object Store',
     'listBuckets': 'Object Store',
     'listVmsForImport': 'Virtual Machine',
-    'importVm': 'Virtual Machine'
+    'importVm': 'Virtual Machine',
+    'createWireguardVpn': 'VPN',
 }
 
 

@@ -667,6 +667,11 @@
            <artifactId>cloud-utils</artifactId>
            <version>${project.version}</version>
        </dependency>
+        <dependency>
+            <groupId>org.apache.cloudstack</groupId>
+            <artifactId>cloud-plugin-wg-vpn</artifactId>
+            <version>4.19.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -54,6 +54,12 @@ public class CreateRemoteAccessVpnCmd extends BaseAsyncCreateCmd {
                description = "public ip address id of the vpn server")
     private Long publicIpId;
 
+    @Parameter(name = "vpn_type",
+            type = CommandType.STRING,
+            required = false,
+            description = "type of vpn to create (wireguard|ipsec), default ipsec")
+    private String vpnType;
+
     @Parameter(name = "iprange",
                type = CommandType.STRING,
                required = false,
@@ -96,6 +102,8 @@ public class CreateRemoteAccessVpnCmd extends BaseAsyncCreateCmd {
         return domainId;
     }
 
+    public String getVpnType() { return vpnType; }
+
     public String getIpRange() {
         return ipRange;
     }
@@ -113,7 +121,7 @@ public class CreateRemoteAccessVpnCmd extends BaseAsyncCreateCmd {
     }
 
     /////////////////////////////////////////////////////
-    /////////////// API Implementation///////////////////
+    /////////////// API Implementation //////////////////
     /////////////////////////////////////////////////////
 
     @Override
@@ -140,7 +148,24 @@ public class CreateRemoteAccessVpnCmd extends BaseAsyncCreateCmd {
     @Override
     public void create() {
         try {
-            RemoteAccessVpn vpn = _ravService.createRemoteAccessVpn(publicIpId, ipRange, getOpenFirewall(), isDisplay());
+
+            RemoteAccessVpn vpn = null;
+
+            switch (getVpnType()) {
+
+                case "wireguard":
+
+                    // TODO: change with wg impl
+                    vpn = _ravService.createRemoteAccessVpn(publicIpId, ipRange, getOpenFirewall(), isDisplay());
+                    break;
+                case "ipsec":
+                    vpn = _ravService.createRemoteAccessVpn(publicIpId, ipRange, getOpenFirewall(), isDisplay());
+                    break;
+                default:
+                    s_logger.info("Unsupported vpn type: " + getVpnType() + ". Using default vpn type: ipsec");
+                    vpn = _ravService.createRemoteAccessVpn(publicIpId, ipRange, getOpenFirewall(), isDisplay());
+            }
+
             if (vpn != null) {
                 setEntityId(vpn.getId());
                 setEntityUuid(vpn.getUuid());
