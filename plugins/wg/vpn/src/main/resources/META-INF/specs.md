@@ -20,11 +20,13 @@ Following tables should be added with appropriate DAO and VO classes:
 - wg_vpn:
     - id: auto_increment ID for the table
     - uuid: the UUID for a wg instance
-    - address: address of the GW in the wg network
+    - vpn_server_addr_id: the public IP of the GW
+    - local_ip: address of the GW in the wg network
     - prefix: prefix for the wg network
-    - server_private_kay: 
+    - server_private_kay:
     - server_public_key:
     - state: state of the resource
+    - account_id: account id of the owner
     - domain_id: the domain ID
     - created: the creation timestamp
     - removed: the removal timestamp
@@ -33,10 +35,10 @@ Following tables should be added with appropriate DAO and VO classes:
     - id: auto_increment ID for the table
     - uuid: the UUID for a wg instance
     - vpn_id: id of instance of wg_vpn
-    - owner_id:
+    - account_id:
     - domain_id:
     - public_key:
-    - address: 
+    - ip_address: 
     - state: state of the resource
     - created: the creation timestamp
     - removed: the removal timestamp

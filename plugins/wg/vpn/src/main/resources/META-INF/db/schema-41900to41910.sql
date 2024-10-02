@@ -1,14 +1,40 @@
 CREATE TABLE IF NOT EXISTS `cloud`.`wg_vpn` (
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     `uuid` varchar(40) UNIQUE,
-    `address` varchar(255) NOT NULL,
+    `local_ip` varchar(255) NOT NULL,
+    `network_id` bigint unsigned null,
     `prefix` int unsigned NOT NULL,
-    `server_private_kay` varchar(255) NOT NULL,
-    `server_public_key` varchar(255) NOT NULL,
+    `server_private_key` TEXT NOT NULL,
+    `server_public_key` TEXT NOT NULL,
+    `vpn_server_addr_id` bigint unsigned NOT NULL,
     `state` varchar(40) NOT NULL,
     `account_id` bigint unsigned NOT NULL,
-    `created` datetime NOT NULL COMMENT 'date of creation',
+    `domain_id` bigint unsigned NOT NULL,
+    `created` datetime DEFAULT NOW() COMMENT 'date of creation',
     `removed` datetime COMMENT 'date of removal',
     PRIMARY KEY (`id`),
-    KEY (`uuid`)
+    KEY (`uuid`),
+    CONSTRAINT `fk_wg_vpn__domain_id` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wg_vpn__account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wg_vpn__network_id` FOREIGN KEY (`network_id`) REFERENCES `networks` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wg_vpn__vpn_server_addr_id` FOREIGN KEY (`vpn_server_addr_id`) REFERENCES `user_ip_address` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `cloud`.`wg_user` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `uuid` varchar(40) UNIQUE,
+    `name` varchar(40) NOT NULL,
+    `vpn_id` bigint unsigned NOT NULL,
+    `public_key` TEXT NOT NULL,
+    `ip_address` varchar(255) NOT NULL,
+    `state` varchar(40) NOT NULL,
+    `account_id` bigint unsigned NOT NULL,
+    `domain_id` bigint unsigned NOT NULL,
+    `created` datetime DEFAULT NOW() COMMENT 'date of creation',
+    `removed` datetime COMMENT 'date of removal',
+    PRIMARY KEY (`id`),
+    KEY (`uuid`),
+    CONSTRAINT `fk_wg_user__domain_id` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wg_user__account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wg_user__vpn_id` FOREIGN KEY (`vpn_id`) REFERENCES `wg_vpn` (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -15,9 +15,9 @@ import org.apache.log4j.Logger;
         since = "4.19.1.0",
         requestHasSensitiveInfo = true, responseHasSensitiveInfo = true,
         authorized = {RoleType.Admin, RoleType.ResourceAdmin, RoleType.DomainAdmin, RoleType.User})
-public class CreateWireguardVpn extends BaseAsyncCreateCmd {
+public class CreateWireguardVpnCmd extends BaseAsyncCreateCmd {
 
-    public static final Logger s_logger = Logger.getLogger(CreateWireguardVpn.class.getName());
+    public static final Logger s_logger = Logger.getLogger(CreateWireguardVpnCmd.class.getName());
 
     /////////////////////////////////////////////////////
     //////////////// API parameters /////////////////////

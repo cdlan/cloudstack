@@ -3,7 +3,6 @@ package org.apache.cloudstack.api.command;
 import com.cloud.exception.*;
 import org.apache.cloudstack.acl.RoleType;
 import org.apache.cloudstack.api.*;
-import org.apache.cloudstack.api.command.user.vpn.ListRemoteAccessVpnsCmd;
 import org.apache.cloudstack.api.response.CreateWireguardVpnResponse;
 import org.apache.cloudstack.api.response.IPAddressResponse;
 import org.apache.cloudstack.api.response.NetworkResponse;
@@ -16,9 +15,9 @@ import org.apache.log4j.Logger;
         since = "4.19.1.0",
         requestHasSensitiveInfo = false, responseHasSensitiveInfo = true,
         authorized = {RoleType.Admin, RoleType.ResourceAdmin, RoleType.DomainAdmin, RoleType.User})
-public class ListWireguardVpn extends BaseListProjectAndAccountResourcesCmd {
+public class ListWireguardVpnCmd extends BaseListProjectAndAccountResourcesCmd {
 
-    public static final Logger s_logger = Logger.getLogger(ListWireguardVpn.class.getName());
+    public static final Logger s_logger = Logger.getLogger(ListWireguardVpnCmd.class.getName());
 
     /////////////////////////////////////////////////////
     //////////////// API parameters /////////////////////
@@ -44,7 +43,6 @@ public class ListWireguardVpn extends BaseListProjectAndAccountResourcesCmd {
     /////////////////// Accessors ///////////////////////
     /////////////////////////////////////////////////////
 
-
     public Long getPublicIpId() {
         return publicIpId;
     }
@@ -59,5 +57,8 @@ public class ListWireguardVpn extends BaseListProjectAndAccountResourcesCmd {
 
     public void execute() throws ResourceUnavailableException, InsufficientCapacityException, ServerApiException, ConcurrentOperationException, ResourceAllocationException, NetworkRuleConflictException {
 
+        // TODO: implement
+
+        return;
     }
 }
