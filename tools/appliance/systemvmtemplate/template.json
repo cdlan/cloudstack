@@ -61,6 +61,7 @@
         "scripts/configure_acpid.sh",
         "scripts/install_systemvm_packages.sh",
         "scripts/configure_conntrack.sh",
+        "scripts/install_wg.sh",
         "scripts/authorized_keys.sh",
         "scripts/configure_persistent_config.sh",
         "scripts/configure_login.sh",
